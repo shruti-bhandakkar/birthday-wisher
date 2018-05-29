@@ -4,6 +4,7 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.css'
 import Signup from './components/signup.js'
 import Login from './components/login.js'
+import Dashboard from './components/dashboard.js'
 import axios from 'axios';
 
 
@@ -13,8 +14,10 @@ class App extends Component {
         super(props);
         this.state = {
             selected: '',
-            loggedIn: false
+            loggedIn: false,
+            loggedInEmail: null
         }
+        this.handleSignUpAjax = this.handleSignUpAjax.bind(this);
     }
 
 
@@ -29,13 +32,11 @@ class App extends Component {
         axios.post('http://localhost:3000/addUser', payLoad).then((response) => {
             console.log(response);
             this.setState({
-                loggedIn: true
+                loggedIn: true,
+                loggedInEmail: payLoad.email
             });
-        }).catch((error) => {
-            console.error(error);
-            this.setState({
-                loggedIn:false
-            });
+        }).catch((err) => {
+            console.error(err);
         });
 
     }
@@ -46,9 +47,9 @@ class App extends Component {
       <div className="App">
 
           <div className="nav">
-              { (!this.state.loggedIn )?<button value='signup' onClick = {(e) => this.handleButtonClick(e)}>Sign up</button>:null}
-              {  (!this.state.loggedIn) ? <button value='login' onClick = {(e) => this.handleButtonClick(e)}>Log In</button>:null}
-              {  (this.state.loggedIn) ? <button value='login' onClick = {(e) => this.handleButtonClick(e)}>Log Out</button>:null}
+              { (!this.state.loggedIn )?<button value='signup' onClick = {(e) => this.handleButtonClick(e)}>Sign up</button>:null }
+              { (!this.state.loggedIn) ? <button value='login' onClick = {(e) => this.handleButtonClick(e)}>Log In</button>:null  }
+              { (this.state.loggedIn) ? <button value='login' onClick = {(e) => this.handleButtonClick(e)}>Log Out</button>:null  }
           </div>
 
           <p className="App-intro">
@@ -56,6 +57,12 @@ class App extends Component {
               { (!this.state.loggedIn && this.state.selected === 'login') ? <Login /> : null}
 
           </p>
+
+          <div >
+              { (this.state.loggedIn) ? <Dashboard email={this.state.loggedInEmail} /> : null  }
+
+          </div>
+
       </div>
     );
   }
