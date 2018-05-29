@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 
 class Signup extends Component {
 
@@ -6,7 +7,6 @@ class Signup extends Component {
         super(props);
         this.state = {
             email: '',
-            username: '',
             password: '',
             confirmPassword: '',
             cssClass: 'form-group'
@@ -20,15 +20,17 @@ class Signup extends Component {
         this.setState({
             [target.name]: target.value
         });
-
-        console.log(this.state);
     }
 
     handleSubmit(event) {
 
         if(this.state.password == this.state.confirmPassword) {
-            // ajax call to post data
-            
+            const payLoad = {
+                email: this.state.email,
+                password: this.state.password
+            }
+            console.log(payLoad);
+            this.props.callbackfunction(payLoad);
         }
         else {
             // assign error class to confirmPassword
@@ -54,11 +56,6 @@ class Signup extends Component {
                       <div className="form-group">
                           <label for="email">Email</label>
                           <input type="email" className="form-control" id="email" name="email" onChange={this.handleInputChange} aria-describedby="Enter Email" placeholder="Email" />
-                      </div>
-
-                      <div className="form-group">
-                          <label for="username">Username</label>
-                          <input type="text" className="form-control" id="username" name="username" onChange={this.handleInputChange} aria-describedby="Enter username" placeholder="Enter username" />
                       </div>
 
                       <div className="form-group">

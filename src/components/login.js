@@ -13,9 +13,8 @@ class Login extends Component {
                   <form>
                       <label>Log In</label>
                       <div className="form-group">
-                          <label for="username">Username</label>
-                          <input type="text" className="form-control" id="username" aria-describedby="Enter username" placeholder="Enter username" />
-
+                          <label for="email">Email</label>
+                          <input type="email" className="form-control" id="email" name="email" onChange={this.handleInputChange} aria-describedby="Enter Email" placeholder="Email" />
                       </div>
                       <div className="form-group">
                           <label for="password">Password</label>
