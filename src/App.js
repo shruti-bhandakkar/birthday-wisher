@@ -18,6 +18,7 @@ class App extends Component {
             loggedInEmail: null
         }
         this.handleSignUpAjax = this.handleSignUpAjax.bind(this);
+        this.handleLogInAjax = this.handleLogInAjax.bind(this);
     }
 
 
@@ -41,6 +42,18 @@ class App extends Component {
 
     }
 
+    handleLogInAjax(payLoad) {
+        // ajax call to authenticate user
+        axios.post('http://localhost:3000/authenticate', payLoad).then((response) => {
+          this.setState({
+            loggedIn: response.data.login,
+            loggedInEmail: payLoad.email
+          });
+        }).catch((err) => {
+          console.error(err);
+        });
+    }
+
 
   render() {
     return (
@@ -54,7 +67,7 @@ class App extends Component {
 
           <p className="App-intro">
               { (!this.state.loggedIn && this.state.selected === 'signup') ? <Signup callbackfunction={this.handleSignUpAjax}/> : null}
-              { (!this.state.loggedIn && this.state.selected === 'login') ? <Login /> : null}
+              { (!this.state.loggedIn && this.state.selected === 'login') ? <Login callbackfunction={this.handleLogInAjax} loggedIn={this.state.login} loggedInEmail={this.state.loggedInEmail}/> : null}
 
           </p>
 
