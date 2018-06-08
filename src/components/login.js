@@ -56,7 +56,7 @@ class Login extends Component {
               </div>
 
               <div>
-            { !this.props.loggedIn && this.props.loggedInEmail ? <p> the username or password is incorretc </p> : null }
+            { !this.props.loggedIn && this.props.loggedInEmail ? <p> the username or password is incorrect </p> : null }
           </div>
           </div>
 

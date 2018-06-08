@@ -73,6 +73,7 @@ class AddContact extends Component {
                         </div>
 
                         <button type="button" onClick={(e) => {this.saveContact(e)}} className="btn btn-primary">Save Contact</button>
+                        <button type="button"  className="btn btn-primary">Cancel </button>
                     </form>
                 </div>
 
