@@ -10,29 +10,24 @@ class Table extends Component {
 
 	constructor(props) {
 		super(props);
-		console.log(this.props.email);
 		this.state = {
-			tableData: null
+			tableData: null,
+			tableDataUpdated: null
 		}
 	}
 
-	componentDidMount() {
-
-		// get data table data
-        axios.get(`http://localhost:3000/getContacts/${this.props.email}`).then((response) => {
-            this.setState({
-                tableData: response.data[0]
-            });
+	componentDidMount() {		
             console.log(this.state.tableData);
             this.$elem = $(this.elem);
 			this.$elem.DataTable({
-				data: response.data[0],
-			});
-        }).catch((err) => {
-            console.error(err);
-        });
-
-		console.log(this.elem);
+				data: this.props.tableData,
+				 "columns": [
+            		{ "data": "contactName" },
+            		{ "data": "contactEmail" },
+            		{ "data": "date" },
+            		{ "data": "type" },
+        		]
+			});        	
 		
 	}
 

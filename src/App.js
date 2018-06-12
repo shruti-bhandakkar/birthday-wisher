@@ -81,14 +81,14 @@ class App extends Component {
               { (this.state.loggedIn) ? <button value='logout' onClick = {(e) => this.handleLogOutAjax(e)}>Log Out</button>:null  }
           </div>
 
-          <p className="App-intro">
+          <div className="App-intro">
               { (!this.state.loggedIn && this.state.selected === 'signup') ? <Signup callbackfunction={this.handleSignUpAjax}/> : null}
               { (!this.state.loggedIn && this.state.selected === 'login') ? <Login callbackfunction={this.handleLogInAjax} loggedIn={this.state.login} loggedInEmail={this.state.loggedInEmail}/> : null}
 
-          </p>
+          </div>
 
           <div >
-              { (this.state.loggedIn) ? <Dashboard s={this.state.loggedInEmail} /> : null  }
+              { (this.state.loggedIn) ? <Dashboard email={this.state.loggedInEmail} /> : null  }
 
           </div>
 

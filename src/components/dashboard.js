@@ -9,7 +9,8 @@ class Dashboard extends Component {
         super(props);
         this.state = {
             inAddForm: false,
-            tableData: null
+            tableData: null,
+            doneFetching:false
         }
         this.handleSaveContactAjax = this.handleSaveContactAjax.bind(this);
     }
@@ -32,21 +33,18 @@ class Dashboard extends Component {
         });
     }
 
-    // fetchDataForDataTable() {
-        // // get data table data
-        // axios.get(`http://localhost:3000/getContacts/${this.props.s}`).then((response) => {
-        //     this.setState({
-        //         tableData: response.data
-        //     });
-        //     console.log(this.state.tableData);
-        // }).catch((err) => {
-        //     console.error(err);
-        // });
-    // }
-
-    // componentDidMount() {
-    //     // this.fetchDataForDataTable();
-    // }
+    componentDidMount() {
+        // get data table data
+        axios.get(`http://localhost:3000/getContacts/${this.props.email}`).then((response) => {
+            this.setState({
+                tableData: response.data,
+                doneFetching:true
+            });
+            console.log(this.state.tableData);
+        }).catch((err) => {
+            console.error(err);
+        });
+    }
 
     render() {
         return (
@@ -57,7 +55,7 @@ class Dashboard extends Component {
 
                 { (this.state.inAddForm) ? <AddContact email={this.props.email} saveContactCallBack = {this.handleSaveContactAjax}  /> :null  }
 
-                <Table email={this.props.s}/>
+                { this.state.doneFetching ?  <Table tableData={this.state.tableData}/> :null }
 
                 </div>
         );
