@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import AddContact from './addcontact.js';
+import Table from './table';
 import axios from 'axios';
 
 
@@ -7,7 +8,8 @@ class Dashboard extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            inAddForm: false
+            inAddForm: false,
+            tableData: null
         }
         this.handleSaveContactAjax = this.handleSaveContactAjax.bind(this);
     }
@@ -30,6 +32,22 @@ class Dashboard extends Component {
         });
     }
 
+    // fetchDataForDataTable() {
+        // // get data table data
+        // axios.get(`http://localhost:3000/getContacts/${this.props.s}`).then((response) => {
+        //     this.setState({
+        //         tableData: response.data
+        //     });
+        //     console.log(this.state.tableData);
+        // }).catch((err) => {
+        //     console.error(err);
+        // });
+    // }
+
+    // componentDidMount() {
+    //     // this.fetchDataForDataTable();
+    // }
+
     render() {
         return (
             <div>
@@ -38,6 +56,8 @@ class Dashboard extends Component {
                 { (!this.state.inAddForm) ? <button onClick={(e) => {this.addNewContact(e)}}>Add new Contact</button>:null  }
 
                 { (this.state.inAddForm) ? <AddContact email={this.props.email} saveContactCallBack = {this.handleSaveContactAjax}  /> :null  }
+
+                <Table email={this.props.s}/>
 
                 </div>
         );

@@ -88,7 +88,7 @@ class App extends Component {
           </p>
 
           <div >
-              { (this.state.loggedIn) ? <Dashboard email={this.state.loggedInEmail} /> : null  }
+              { (this.state.loggedIn) ? <Dashboard s={this.state.loggedInEmail} /> : null  }
 
           </div>
 
